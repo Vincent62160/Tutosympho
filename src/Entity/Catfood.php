@@ -32,6 +32,11 @@ class Catfood
      */
     private $image;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=menu::class, inversedBy="catfoods")
+     */
+    private $menus;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +74,18 @@ class Catfood
     public function setImage(string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getMenus(): ?menu
+    {
+        return $this->menus;
+    }
+
+    public function setMenus(?menu $menus): self
+    {
+        $this->menus = $menus;
 
         return $this;
     }

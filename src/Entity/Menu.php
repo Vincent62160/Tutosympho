@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MenuRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,6 +43,16 @@ class Menu
      * @ORM\Column(type="string", length=255)
      */
     private $chef;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Catfood::class, mappedBy="menus")
+     */
+    private $catfoods;
+
+    public function __construct()
+    {
+        $this->catfoods = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -103,6 +115,36 @@ class Menu
     public function setChef(string $chef): self
     {
         $this->chef = $chef;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Catfood[]
+     */
+    public function getCatfoods(): Collection
+    {
+        return $this->catfoods;
+    }
+
+    public function addCatfood(Catfood $catfood): self
+    {
+        if (!$this->catfoods->contains($catfood)) {
+            $this->catfoods[] = $catfood;
+            $catfood->setMenus($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCatfood(Catfood $catfood): self
+    {
+        if ($this->catfoods->removeElement($catfood)) {
+            // set the owning side to null (unless already changed)
+            if ($catfood->getMenus() === $this) {
+                $catfood->setMenus(null);
+            }
+        }
 
         return $this;
     }

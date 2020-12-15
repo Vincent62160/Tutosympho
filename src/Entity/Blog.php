@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BlogRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,6 +38,21 @@ class Blog
      * @ORM\Column(type="string", length=255)
      */
     private $dascription;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=blogReply::class, inversedBy="blogs")
+     */
+    private $blogreplys;
+
+    /**
+     * @ORM\OneToMany(targetEntity=blogcat::class, mappedBy="blog")
+     */
+    private $Blogcategorys;
+
+    public function __construct()
+    {
+        $this->Blogcategorys = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -86,6 +103,48 @@ class Blog
     public function setDascription(string $dascription): self
     {
         $this->dascription = $dascription;
+
+        return $this;
+    }
+
+    public function getBlogreplys(): ?blogReply
+    {
+        return $this->blogreplys;
+    }
+
+    public function setBlogreplys(?blogReply $blogreplys): self
+    {
+        $this->blogreplys = $blogreplys;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|blogcat[]
+     */
+    public function getBlogcategorys(): Collection
+    {
+        return $this->Blogcategorys;
+    }
+
+    public function addBlogcategory(blogcat $blogcategory): self
+    {
+        if (!$this->Blogcategorys->contains($blogcategory)) {
+            $this->Blogcategorys[] = $blogcategory;
+            $blogcategory->setBlog($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBlogcategory(blogcat $blogcategory): self
+    {
+        if ($this->Blogcategorys->removeElement($blogcategory)) {
+            // set the owning side to null (unless already changed)
+            if ($blogcategory->getBlog() === $this) {
+                $blogcategory->setBlog(null);
+            }
+        }
 
         return $this;
     }

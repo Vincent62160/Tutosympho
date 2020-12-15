@@ -22,6 +22,11 @@ class Blogcat
      */
     private $namecat;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Blog::class, inversedBy="Blogcategorys")
+     */
+    private $blog;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +40,18 @@ class Blogcat
     public function setNamecat(string $namecat): self
     {
         $this->namecat = $namecat;
+
+        return $this;
+    }
+
+    public function getBlog(): ?Blog
+    {
+        return $this->blog;
+    }
+
+    public function setBlog(?Blog $blog): self
+    {
+        $this->blog = $blog;
 
         return $this;
     }
