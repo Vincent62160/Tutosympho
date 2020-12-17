@@ -33,7 +33,7 @@ class Catfood
     private $image;
 
     /**
-     * @ORM\ManyToOne(targetEntity=menu::class, inversedBy="catfoods")
+     * @ORM\ManyToOne(targetEntity=Menu::class, inversedBy="catfoods")
      */
     private $menus;
 

@@ -40,12 +40,12 @@ class Blog
     private $dascription;
 
     /**
-     * @ORM\ManyToOne(targetEntity=blogReply::class, inversedBy="blogs")
+     * @ORM\ManyToOne(targetEntity=Blogreply::class, inversedBy="blogs")
      */
     private $blogreplys;
 
     /**
-     * @ORM\OneToMany(targetEntity=blogcat::class, mappedBy="blog")
+     * @ORM\OneToMany(targetEntity=Blogcat::class, mappedBy="blog")
      */
     private $Blogcategorys;
 

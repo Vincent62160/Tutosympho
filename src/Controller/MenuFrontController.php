@@ -6,15 +6,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class FeatureController extends AbstractController
+class MenuFrontController extends AbstractController
 {
     /**
-     * @Route("/feature", name="feature")
+     * @Route("/menu", name="menu")
      */
     public function index(): Response
     {
-        return $this->render('feature/index.html.twig', [
-            'controller_name' => 'FeatureController',
+        return $this->render('menuFront/index.html.twig', [
+            'controller_name' => 'MenuController',
         ]);
     }
 }

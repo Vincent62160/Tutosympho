@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blogcat{% endblock %}
+
+{% block body %}
+    <h1>Blogcat</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ blogcat.id }}</td>
+            </tr>
+            <tr>
+                <th>Namecat</th>
+                <td>{{ blogcat.namecat }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('blogcat_index') }}">back to list</a>
+
+    <a href="{{ path('blogcat_edit', {'id': blogcat.id}) }}">edit</a>
+
+    {{ include('blogcat/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blogcat index{% endblock %}
+
+{% block body %}
+    <h1>Blogcat index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Namecat</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for blogcat in blogcats %}
+            <tr>
+                <td>{{ blogcat.id }}</td>
+                <td>{{ blogcat.namecat }}</td>
+                <td>
+                    <a href="{{ path('blogcat_show', {'id': blogcat.id}) }}">show</a>
+                    <a href="{{ path('blogcat_edit', {'id': blogcat.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('blogcat_new') }}">Create new</a>
+{% endblock %}
